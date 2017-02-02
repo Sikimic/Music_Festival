@@ -36,6 +36,7 @@ import utils.HibernateHelper;
 public class LoginBean {
     private String username;
     private String password;
+    private String new_pass;
     private User user;
     
     public LoginBean() {
@@ -54,7 +55,6 @@ public class LoginBean {
         
         res = query.list();
         session.getTransaction().commit();
-        
         Iterator itr = res.iterator();
         
         while(itr.hasNext()){
@@ -74,11 +74,19 @@ public class LoginBean {
     }
     
     public String doRegister() {
-        String res = "";
+        String ret = "";
        
-        return res;
+        return ret;
     }
     
+    public String doChangePassword() {
+        String ret = "";
+        
+        
+       
+        
+        return ret;
+    }
     
     public String getUsername() {
         return username;
@@ -94,6 +102,14 @@ public class LoginBean {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public String getNewPass() {
+        return new_pass;
+    }
+
+    public void setNewPass(String new_pass) {
+        this.new_pass = new_pass;
     }
 
     public User getUser() {
