@@ -7,15 +7,18 @@ package controllers;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-
+import entities.User;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 
 /**
  *
  * @author Sikimic Nebojsa
  */
-
-public class AppController { 
-
+@ManagedBean(name = "app")
+@ApplicationScoped
+public class AppController {
+    
     public AppController() {
         
     }
@@ -23,11 +26,13 @@ public class AppController {
     public static HttpSession getSession() {
         return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
     }
-
-//    public void setSession(HttpSession session) {
-//        this.session = session;
-//    }
     
+    public static User getUser() {
+        return (User) getSession().getAttribute("user");
+    }
     
+    public static void setUser(User user) {
+        getSession().setAttribute("user", user);
+    }
     
 }

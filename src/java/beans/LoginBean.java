@@ -6,7 +6,6 @@
 package beans;
 
 import controllers.AppController;
-import DB.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +20,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import entities.User;
+import java.util.Iterator;
 
 import org.hibernate.Session;
 import org.hibernate.*;
@@ -43,30 +43,34 @@ public class LoginBean {
     }
     
     public String doLogin() {
-        String res = "";
-        List<Object> list = new ArrayList<>();
+        String ret = "";
+        List<User> res = new ArrayList<>();
         Session session = HibernateHelper.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-
         
-        Query query = session.createQuery("SELECT username, password, ime, prezime, telefon, email, repassword FROM user WHERE username = :username AND password = :password");
+        Query query = session.createSQLQuery("SELECT username, password, ime, prezime, telefon, email, repassword FROM user WHERE username = :username AND password = :password");
         query.setParameter("username", username);
         query.setParameter("password", password);
-        list = query.list();
-        if (list != null) {
-            session.getTransaction().commit();
-            user.setUsername((String)list.get(0));
-            user.setPassword((String)list.get(1));
-            user.setIme((String)list.get(2));
-            user.setPrezime((String)list.get(3));
-            user.setTelefon((String)list.get(4));
-            user.setEmail((String)list.get(5));
-            user.setRepassword((String)list.get(6));
-            res = "homePage";
-        } 
-       
-
-        return res;
+        
+        res = query.list();
+        session.getTransaction().commit();
+        
+        Iterator itr = res.iterator();
+        
+        while(itr.hasNext()){
+            Object[] obj = (Object[]) itr.next();
+            user.setUsername(String.valueOf(obj[0]));
+            user.setPassword(String.valueOf(obj[1]));
+            user.setIme(String.valueOf(obj[2]));
+            user.setPrezime(String.valueOf(obj[3]));
+            user.setTelefon(String.valueOf(obj[4]));
+            user.setEmail(String.valueOf(obj[5]));
+            user.setRepassword(String.valueOf(obj[6]));
+            
+            AppController.setUser(user);
+            ret = "homePage";
+        }
+        return ret;
     }
     
     public String doRegister() {
