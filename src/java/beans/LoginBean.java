@@ -5,6 +5,7 @@
  */
 package beans;
 
+import controllers.AppController;
 import DB.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +19,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import models.User;
+
+import org.hibernate.Session;
+import org.hibernate.*;
+
 
 /**
  *
@@ -35,6 +40,7 @@ public class LoginBean {
     }
     
     public String doLogin() {
+        
         String res = "";
         
         Connection conn = DB.getInstance().getConnection();
@@ -52,7 +58,7 @@ public class LoginBean {
                 user.setTelefon(rs.getString("telefon"));
                 user.setUsername(username);
                 
-                HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                HttpSession session = AppController.getSession();
                 session.setAttribute("user", user);
                 res = "homePage";
             }
