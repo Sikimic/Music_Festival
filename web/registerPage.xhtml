@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+     <h:head>
+        <title> Music Festival </title>
+	<h:outputStylesheet library="css" name="app.css"  />
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+            
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </h:head>
+    <h:body>
+        
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="header.xhtml" />
+            </ui:insert>
+        </div>
+            <div class="container container_login" >
+                <div class="row">
+                    <h:form class="col-sm-4 col-sm-offset-4" >
+                        <div class="form-group">
+                            <label for="user">Username:</label>
+                            <h:inputText value="#{loginBean.user.username}" class="form-control" id="user" required="true" requiredMessage="Type Username"></h:inputText>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass">Password: </label>
+                            <h:inputSecret value="#{loginBean.user.password}" class="form-control" id="pass" required="true" requiredMessage="Type Password"></h:inputSecret>
+                        </div>
+                        <div class="form-group">
+                            <label for="repass">Retype password: </label>
+                            <h:inputSecret value="#{loginBean.user.repassword}" class="form-control" id="repass" required="true" requiredMessage="Type Re-Password"></h:inputSecret>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name: </label>
+                            <h:inputText value="#{loginBean.user.ime}" class="form-control" id="name" required="true" requiredMessage="Type Name"></h:inputText>
+                        </div>
+                        <div class="form-group">
+                            <label for="surname">Surname: </label>
+                            <h:inputText value="#{loginBean.user.prezime}" class="form-control" id="surname" required="true" requiredMessage="Type Surname"></h:inputText>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email: </label>
+                            <h:inputText value="#{loginBean.user.email}" class="form-control" id="email" required="true" requiredMessage="Type Email"></h:inputText>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone: </label>
+                            <h:inputText value="#{loginBean.user.telefon}" class="form-control" id="phone" required="true" requiredMessage="Type Phone"></h:inputText>
+                        </div>
+                        <h:commandButton value="Submit" action="#{loginBean.doRegister()}" class="btn btn-primary col-xs-12"></h:commandButton>
+                    </h:form>  
+                </div>
+            </div>
+        
+        <div id="footer">
+            <ui:insert name="footer" >
+              <ui:include src="footer.xhtml" />
+            </ui:insert>
+        </div>
+        
+    </h:body>
+</html>
+
