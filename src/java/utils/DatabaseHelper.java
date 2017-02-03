@@ -9,8 +9,10 @@ import entities.User;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -21,37 +23,22 @@ public class DatabaseHelper {
 // LoginBean - used for logging in the user
 // @ReturnParam - User from database  or null if not found 
    public static User doLogin(String username, String password) {
-        List<User> res = new ArrayList<>();
         Session session = HibernateHelper.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         
-        Query query = session.createSQLQuery("SELECT username, password, ime, prezime, telefon, email, repassword FROM user WHERE username = :username AND password = :password");
-        query.setParameter("username", username);
-        query.setParameter("password", password);
+        Criteria criteria = session.createCriteria(User.class);
+        criteria.add(Restrictions.eq("username", username));
+        criteria.add(Restrictions.eq("password", password));
+        List<User> users = criteria.list();
         
-        res = query.list();
         session.getTransaction().commit();
-
-        Iterator itr = res.iterator();
-        User user = null;
         
-        if(itr.hasNext()){
-            user = new User();
-            Object[] obj = (Object[]) itr.next();
-            user.setUsername(String.valueOf(obj[0]));
-            user.setPassword(String.valueOf(obj[1]));
-            user.setIme(String.valueOf(obj[2]));
-            user.setPrezime(String.valueOf(obj[3]));
-            user.setTelefon(String.valueOf(obj[4]));
-            user.setEmail(String.valueOf(obj[5]));
-            user.setRepassword(String.valueOf(obj[6]));
-        } 
-        
-        return user;
+        if (users.isEmpty()) return null;
+        else return users.get(0);
    }
  
-// LoginBean - used for logging in the user
-// @ReturnParam - User from database  or null if not found 
+// LoginBean - used for registering the user
+// @ReturnParam - 0 for unsuccesfull, 1 for successful update 
    public static int doRegister(User user) {
         Session session = HibernateHelper.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -64,21 +51,23 @@ public class DatabaseHelper {
    
 // LoginBean - used for updating the user password
 // @ReturnParam - 0 for unsuccessfull, 1 for successfull update
-   public static int doUserChangePassword(String user, String pass, String new_pass) {
+   public static int doUserChangePassword(String username, String password, String new_pass) {
        
-        Session session = HibernateHelper.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        User user = doLogin(username, password);
+        if (user != null) {
+            Session session = HibernateHelper.getSessionFactory().getCurrentSession();
+            session.beginTransaction();
+             
+            user.setPassword(new_pass);
+            user.setRepassword(new_pass);
+            session.update(user);
+            
+            session.getTransaction().commit();
+            return 1;
+        }
         
-        Query query = session.createSQLQuery("UPDATE user SET password = :pass , repassword = :repass WHERE username = :username AND password = :password");
-        query.setParameter("username", user);
-        query.setParameter("password", pass);
-        query.setParameter("pass", new_pass);
-        query.setParameter("repass", new_pass);
         
-        int res = query.executeUpdate();
-        session.getTransaction().commit();
-        
-        return res;
+        return 0;
    }   
     
 }
