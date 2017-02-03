@@ -13,7 +13,7 @@
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <h:link class="navbar-brand" outcome="index" >
+                        <h:link class="navbar-brand" outcome="homePage" >
                                 <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                         </h:link>
                         <c:choose>
@@ -22,9 +22,6 @@
                                     Signed in as <h:outputLabel value="#{app.getUser().ime}" /> 
                                 </p>
                             </c:when>
-<!--                            <c:otherwise>
-                               
-                            </c:otherwise>-->
                         </c:choose>
                         
                     </div>
@@ -34,6 +31,11 @@
                                     <h:link value="Logout" outcome="#{app.logout()}" />
                                 </p>
                             </c:when>
+                            <c:otherwise>
+                                <p class="navbar-text navbar-right">
+                                    <h:link value="Login" outcome="index" />
+                                </p>
+                            </c:otherwise>
                         </c:choose>
                 </div>
             </nav>

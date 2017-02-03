@@ -41,5 +41,9 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="music_fest"/>
+  <table-filter match-name="festival"/>
+  <table-filter match-name="performer"/>
   <table-filter match-name="user"/>
+  <table-filter match-name="socialnetwork"/>
+  <table-filter match-name="ticket"/>
 </hibernate-reverse-engineering>

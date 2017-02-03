@@ -49,5 +49,9 @@ Contributor(s):
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="entities.User"/>
+    <mapping class="entities.Performer"/>
+    <mapping class="entities.Ticket"/>
+    <mapping class="entities.Socialnetwork"/>
+    <mapping class="entities.Festival"/>
   </session-factory>
 </hibernate-configuration>

@@ -57,8 +57,10 @@ public class LoginBean {
     
     public String doRegister() {
         String ret = "";
-        DatabaseHelper.doRegister(user);
-        ret = "index";
+        if (user.getPassword().equals(new_pass)) {
+            DatabaseHelper.doRegister(user);
+            ret = "index";
+        }
         return ret;
     }
     

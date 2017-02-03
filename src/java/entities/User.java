@@ -1,5 +1,5 @@
 package entities;
-// Generated Feb 2, 2017 3:52:03 PM by Hibernate Tools 4.3.1
+// Generated Feb 3, 2017 5:23:20 PM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -23,19 +23,21 @@ public class User  implements java.io.Serializable {
      private String prezime;
      private String telefon;
      private String email;
-     private String repassword;
+     private int isBlocked;
+     private int isAdmin;
 
     public User() {
     }
 
-    public User(String username, String password, String ime, String prezime, String telefon, String email, String repassword) {
+    public User(String username, String password, String ime, String prezime, String telefon, String email, int isBlocked, int isAdmin) {
        this.username = username;
        this.password = password;
        this.ime = ime;
        this.prezime = prezime;
        this.telefon = telefon;
        this.email = email;
-       this.repassword = repassword;
+       this.isBlocked = isBlocked;
+       this.isAdmin = isAdmin;
     }
    
      @Id 
@@ -101,13 +103,23 @@ public class User  implements java.io.Serializable {
     }
 
     
-    @Column(name="repassword", nullable=false, length=16)
-    public String getRepassword() {
-        return this.repassword;
+    @Column(name="isBlocked", nullable=false)
+    public int getIsBlocked() {
+        return this.isBlocked;
     }
     
-    public void setRepassword(String repassword) {
-        this.repassword = repassword;
+    public void setIsBlocked(int isBlocked) {
+        this.isBlocked = isBlocked;
+    }
+
+    
+    @Column(name="isAdmin", nullable=false)
+    public int getIsAdmin() {
+        return this.isAdmin;
+    }
+    
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
 
