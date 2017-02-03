@@ -49,6 +49,7 @@ public class LoginBean {
         user = DatabaseHelper.doLogin(username, password);
         if (user != null) {
             AppController.setUser(user);
+            AppController.setUserLoggedIn(true);
             ret = "homePage";  
         }
         return ret;

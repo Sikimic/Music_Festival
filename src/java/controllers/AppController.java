@@ -19,6 +19,8 @@ import javax.faces.bean.ManagedBean;
 @ApplicationScoped
 public class AppController {
     
+    static Boolean userLoggedIn = false;
+    
     public AppController() {
         
     }
@@ -34,5 +36,22 @@ public class AppController {
     public static void setUser(User user) {
         getSession().setAttribute("user", user);
     }
+    
+    public static String logout() {
+        
+        getSession().invalidate();
+        setUserLoggedIn(false);
+       
+        return "index?faces-redirect=true";
+    }
+    
+    public static void setUserLoggedIn(Boolean userLoggedIn) {
+        AppController.userLoggedIn = userLoggedIn;
+    }
+    
+    public Boolean getUserLoggedIn() {
+        return userLoggedIn;
+    }
+    
     
 }
