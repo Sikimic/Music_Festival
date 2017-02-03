@@ -1,5 +1,5 @@
 package entities;
-// Generated Feb 3, 2017 5:23:20 PM by Hibernate Tools 4.3.1
+// Generated Feb 3, 2017 5:45:42 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -29,17 +29,19 @@ public class Festival  implements java.io.Serializable {
      private Date endDate;
      private int priceDay;
      private int priceTotal;
+     private int visited;
 
     public Festival() {
     }
 
-    public Festival(String name, String place, Date startDate, Date endDate, int priceDay, int priceTotal) {
+    public Festival(String name, String place, Date startDate, Date endDate, int priceDay, int priceTotal, int visited) {
        this.name = name;
        this.place = place;
        this.startDate = startDate;
        this.endDate = endDate;
        this.priceDay = priceDay;
        this.priceTotal = priceTotal;
+       this.visited = visited;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -112,6 +114,16 @@ public class Festival  implements java.io.Serializable {
     
     public void setPriceTotal(int priceTotal) {
         this.priceTotal = priceTotal;
+    }
+
+    
+    @Column(name="visited", nullable=false)
+    public int getVisited() {
+        return this.visited;
+    }
+    
+    public void setVisited(int visited) {
+        this.visited = visited;
     }
 
 

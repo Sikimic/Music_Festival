@@ -52,6 +52,7 @@ Contributor(s):
     <mapping class="entities.Performer"/>
     <mapping class="entities.Ticket"/>
     <mapping class="entities.Socialnetwork"/>
+    <mapping class="entities.Reservation"/>
     <mapping class="entities.Festival"/>
   </session-factory>
 </hibernate-configuration>
