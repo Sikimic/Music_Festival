@@ -24,6 +24,7 @@ import java.util.Iterator;
 
 import org.hibernate.Session;
 import org.hibernate.*;
+import utils.DatabaseHelper;
 import utils.HibernateHelper;
 
 
@@ -46,18 +47,11 @@ public class LoginBean {
     public String doLogin() {
         String ret = "";
         List<User> res = new ArrayList<>();
-        Session session = HibernateHelper.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
         
-        Query query = session.createSQLQuery("SELECT username, password, ime, prezime, telefon, email, repassword FROM user WHERE username = :username AND password = :password");
-        query.setParameter("username", username);
-        query.setParameter("password", password);
+        res = DatabaseHelper.doLogin(username, password);
         
-        res = query.list();
-        session.getTransaction().commit();
         Iterator itr = res.iterator();
-        
-        while(itr.hasNext()){
+        if(itr.hasNext()){
             Object[] obj = (Object[]) itr.next();
             user.setUsername(String.valueOf(obj[0]));
             user.setPassword(String.valueOf(obj[1]));
@@ -81,9 +75,8 @@ public class LoginBean {
     
     public String doChangePassword() {
         String ret = "";
-        
-        
-       
+        int res = DatabaseHelper.doUserChangePassword(username, password, new_pass);
+        if (res == 1) ret = "index";
         
         return ret;
     }
