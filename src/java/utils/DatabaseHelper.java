@@ -19,22 +19,49 @@ import org.hibernate.Session;
 public class DatabaseHelper {
     
 // LoginBean - used for logging in the user
-// @ReturnParam - List of users from database   
-   public static List<User> doLogin(String user, String pass) {
+// @ReturnParam - User from database  or null if not found 
+   public static User doLogin(String username, String password) {
         List<User> res = new ArrayList<>();
         Session session = HibernateHelper.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         
         Query query = session.createSQLQuery("SELECT username, password, ime, prezime, telefon, email, repassword FROM user WHERE username = :username AND password = :password");
-        query.setParameter("username", user);
-        query.setParameter("password", pass);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
         
         res = query.list();
         session.getTransaction().commit();
+
+        Iterator itr = res.iterator();
+        User user = null;
         
-        return res;
+        if(itr.hasNext()){
+            user = new User();
+            Object[] obj = (Object[]) itr.next();
+            user.setUsername(String.valueOf(obj[0]));
+            user.setPassword(String.valueOf(obj[1]));
+            user.setIme(String.valueOf(obj[2]));
+            user.setPrezime(String.valueOf(obj[3]));
+            user.setTelefon(String.valueOf(obj[4]));
+            user.setEmail(String.valueOf(obj[5]));
+            user.setRepassword(String.valueOf(obj[6]));
+        } 
+        
+        return user;
    }
  
+// LoginBean - used for logging in the user
+// @ReturnParam - User from database  or null if not found 
+   public static int doRegister(User user) {
+        Session session = HibernateHelper.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.save(user);
+        session.getTransaction().commit();
+        return 1;
+   }
+   
+   
+   
 // LoginBean - used for updating the user password
 // @ReturnParam - 0 for unsuccessfull, 1 for successfull update
    public static int doUserChangePassword(String user, String pass, String new_pass) {

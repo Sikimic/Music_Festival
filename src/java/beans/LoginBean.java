@@ -46,30 +46,18 @@ public class LoginBean {
     
     public String doLogin() {
         String ret = "";
-        List<User> res = new ArrayList<>();
-        
-        res = DatabaseHelper.doLogin(username, password);
-        
-        Iterator itr = res.iterator();
-        if(itr.hasNext()){
-            Object[] obj = (Object[]) itr.next();
-            user.setUsername(String.valueOf(obj[0]));
-            user.setPassword(String.valueOf(obj[1]));
-            user.setIme(String.valueOf(obj[2]));
-            user.setPrezime(String.valueOf(obj[3]));
-            user.setTelefon(String.valueOf(obj[4]));
-            user.setEmail(String.valueOf(obj[5]));
-            user.setRepassword(String.valueOf(obj[6]));
-            
+        user = DatabaseHelper.doLogin(username, password);
+        if (user != null) {
             AppController.setUser(user);
-            ret = "homePage";
+            ret = "homePage";  
         }
         return ret;
     }
     
     public String doRegister() {
         String ret = "";
-       
+        DatabaseHelper.doRegister(user);
+        ret = "index";
         return ret;
     }
     
@@ -77,7 +65,6 @@ public class LoginBean {
         String ret = "";
         int res = DatabaseHelper.doUserChangePassword(username, password, new_pass);
         if (res == 1) ret = "index";
-        
         return ret;
     }
     
