@@ -19,7 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import entities.User;
+import entities.Users;
 import java.util.Iterator;
 
 import org.hibernate.Session;
@@ -38,10 +38,10 @@ public class LoginBean {
     private String username;
     private String password;
     private String new_pass;
-    private User user;
+    private Users user;
     
     public LoginBean() {
-        user = new User();
+        user = new Users();
     }
     
     public String doLogin() {
@@ -95,11 +95,11 @@ public class LoginBean {
         this.new_pass = new_pass;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 }
