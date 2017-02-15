@@ -43,16 +43,19 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/music_fest</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/pia_project_db</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password"/>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <mapping class="entities.User"/>
-    <mapping class="entities.Performer"/>
-    <mapping class="entities.Ticket"/>
-    <mapping class="entities.Socialnetwork"/>
-    <mapping class="entities.Reservation"/>
-    <mapping class="entities.Festival"/>
+    <mapping class="entities.Users"/>
+    <mapping class="entities.Performers"/>
+    <mapping class="entities.Reservations"/>
+    <mapping class="entities.Festivals"/>
+    <mapping class="entities.SocialNetworks"/>
+    <mapping class="entities.ReservationsId"/>
+    <mapping class="entities.FestivalsPerformers"/>
+    <mapping class="entities.Tickets"/>
+    <mapping class="entities.UserRoles"/>
   </session-factory>
 </hibernate-configuration>
